@@ -5,22 +5,20 @@ REPO_NAME="vtx-patcher"
 RAW="https://github.com/$REPO_USER/$REPO_NAME/raw/refs/heads/main"
 
 echo "[*] Installing VTX Patcher..."
-pkg install -y python openjdk-21 apksigner zipalign openssl-tool curl wget shc xxd
+pkg install -y python openjdk-21 apksigner zipalign openssl-tool curl wget shc xxd gcc
 
 mkdir -p ~/.local/bin
 mkdir -p /sdcard/vtx
 
-# Binary download
-echo "[*] Downloading vtx..."
+# vtx binary download
+echo "[*] Downloading vtx binary..."
 curl -sL "$RAW/vtx" -o ~/.local/bin/vtx
 chmod +x ~/.local/bin/vtx
 
-# Original script bhi (shc ke liye)
-if [ -f /sdcard/vtx/vtx.sh ]; then
-    echo "[✓] vtx.sh already exists"
-else
-    echo "[!] vtx.sh nahi mili — tu manually daal"
-fi
+# encrypted script download (vtx binary isko dhundhta hai)
+echo "[*] Downloading vtx.sh.x..."
+curl -sL "$RAW/vtx.sh.x" -o ~/.vtx.sh.x
+chmod +x ~/.vtx.sh.x
 
 # PATH add
 if ! grep -q '.local/bin' ~/.bashrc; then
