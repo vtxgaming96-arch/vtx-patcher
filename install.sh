@@ -24,13 +24,13 @@ echo "[3/5] Creating folders..."
 mkdir -p ~/.local/bin
 mkdir -p /sdcard/vtx
 
-# Step 4: Download
+# Step 4: Download launcher + encrypted script
 echo "[4/5] Downloading VTXPATCHER..."
+
 curl -sL "$RAW/vtxpatcher" -o ~/.local/bin/vtxpatcher 2>/dev/null
 chmod +x ~/.local/bin/vtxpatcher 2>/dev/null
 
-curl -sL "$RAW/vtx.sh.x" -o ~/.vtx.sh.x 2>/dev/null
-chmod +x ~/.vtx.sh.x 2>/dev/null
+curl -sL "$RAW/vtx.enc" -o /sdcard/vtx/vtx.enc 2>/dev/null
 
 # Step 5: PATH setup
 echo "[5/5] Setting up PATH..."
@@ -38,6 +38,7 @@ if ! grep -q '.local/bin' ~/.bashrc; then
     echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
 fi
 sed -i '/alias vtx/d' ~/.bashrc 2>/dev/null
+sed -i '/alias vtxpatcher/d' ~/.bashrc 2>/dev/null
 
 echo ""
 echo "═══════════════════════════════════════════"
